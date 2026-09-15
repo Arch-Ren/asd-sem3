@@ -52,7 +52,7 @@ class SingleLinkedList {
         size++;
     }
 
-    //Tugas 2 - Lengkapi Method 
+    //Tugas 2 - Lengkapi Method
     void addLast(Node input) {
         // lengkapi bagian ini. logicnya mirip kyk addFirst
         if(isEmpty()) {
@@ -64,7 +64,7 @@ class SingleLinkedList {
         size++;
     }
 
-    // Tugas 3 - Method menghapus parsel 
+    // Tugas 3 - Method menghapus parsel
     void removeParcel(String trackingId) {
         // TODO: Temukan dan hapus parcel dgn ID yg sesuai
         // Perhatikan head, tail, dan ukuran SLL
