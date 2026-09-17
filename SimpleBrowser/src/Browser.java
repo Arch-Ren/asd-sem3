@@ -4,9 +4,12 @@ public class Browser {
     Node current;
 
     Browser() {
-        head = null;
-        tail = null;
-        current = null;
+        Situs newTab =  new Situs("newTab", "New Tab");
+        Node newTabNode = new Node(newTab);
+
+        head = newTabNode;
+        tail = newTabNode;
+        current = newTabNode;
     }
 
     boolean isEmpty() {
@@ -23,6 +26,32 @@ public class Browser {
             input.prev = current;
             tail = input;
             current = input;
+        }
+    }
+
+    void back() {
+        if(isEmpty() || current == head){
+            return;
+        }
+        current = current.prev;
+    }
+
+    void forward() {
+        if(isEmpty() || current == tail){
+            return;
+        }
+        current = current.next;
+    }
+
+    Situs getCurrent() {
+        return current.data;
+    }
+
+    void showHistory() {
+        Node temp = head.next;
+        while (temp != null) {
+            System.out.print(temp.data.namaSitus + " - " + temp.data.alamatSitus + "\n");
+            temp = temp.next;
         }
     }
 }
