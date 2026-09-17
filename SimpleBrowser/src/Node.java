@@ -1,7 +1,7 @@
 public class Node {
     Situs data;
-    Situs prev;
-    Situs next;
+    Node prev;
+    Node next;
 
     Node(Situs data) {
         this.data = data;
