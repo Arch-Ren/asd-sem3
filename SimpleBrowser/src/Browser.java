@@ -4,7 +4,7 @@ public class Browser {
     Node current;
 
     Browser() {
-        Situs newTab =  new Situs("newTab", "New Tab");
+        Situs newTab =  new Situs("newTab", "New Tab", null, null);
         Node newTabNode = new Node(newTab);
 
         head = newTabNode;
