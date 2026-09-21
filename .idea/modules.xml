@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Code.iml" filepath="$PROJECT_DIR$/.idea/Code.iml" />
       <module fileurl="file://$PROJECT_DIR$/DLL_Song/DLL_Song.iml" filepath="$PROJECT_DIR$/DLL_Song/DLL_Song.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Modul4/Modul4.iml" filepath="$PROJECT_DIR$/Modul4/Modul4.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleBrowser/SimpleBrowser.iml" filepath="$PROJECT_DIR$/SimpleBrowser/SimpleBrowser.iml" />
       <module fileurl="file://$PROJECT_DIR$/SingleLinkedList/SingleLinkedList.iml" filepath="$PROJECT_DIR$/SingleLinkedList/SingleLinkedList.iml" />
     </modules>

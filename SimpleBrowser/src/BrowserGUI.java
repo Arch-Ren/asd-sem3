@@ -10,10 +10,7 @@ public class BrowserGUI extends JFrame {
     private JLabel lblSiteUrl;
     private JLabel lblAddress;
     private JLabel lblHistory;
-
-    // NEW
-    private JLabel lblCurrentFavicon;
-    private JLabel lblScreenshot;
+    private JLabel lblSiteInitial;
 
     private JButton btnBack;
     private JButton btnForward;
@@ -129,10 +126,29 @@ public class BrowserGUI extends JFrame {
                 new EmptyBorder(25, 50, 25, 50)
         );
 
-        // ---------- FAVICON ----------
+        // ---------- SITE INITIAL ----------
 
-        lblCurrentFavicon = new JLabel();
-        lblCurrentFavicon.setAlignmentX(
+        lblSiteInitial = new JLabel(
+                "N",
+                SwingConstants.CENTER
+        );
+
+        lblSiteInitial.setForeground(TEXT);
+        lblSiteInitial.setBackground(SURFACE_LIGHT);
+        lblSiteInitial.setOpaque(true);
+        lblSiteInitial.setFont(
+                new Font("SansSerif", Font.BOLD, 64)
+        );
+        lblSiteInitial.setPreferredSize(
+                new Dimension(150, 150)
+        );
+        lblSiteInitial.setMinimumSize(
+                new Dimension(150, 150)
+        );
+        lblSiteInitial.setMaximumSize(
+                new Dimension(150, 150)
+        );
+        lblSiteInitial.setAlignmentX(
                 Component.CENTER_ALIGNMENT
         );
 
@@ -164,30 +180,13 @@ public class BrowserGUI extends JFrame {
                 Component.CENTER_ALIGNMENT
         );
 
-        // ---------- SCREENSHOT ----------
-
-        lblScreenshot = new JLabel();
-
-        lblScreenshot.setAlignmentX(
-                Component.CENTER_ALIGNMENT
-        );
-
-        lblScreenshot.setHorizontalAlignment(
-                SwingConstants.CENTER
-        );
-
-        lblScreenshot.setPreferredSize(
-                new Dimension(600, 260)
-        );
-
-        // ---------- ADD CURRENT SITE ----------
-
         main.add(Box.createVerticalGlue());
-        main.add(lblScreenshot);
+        main.add(lblSiteInitial);
+        main.add(Box.createVerticalStrut(24));
+        main.add(lblSiteName);
+        main.add(Box.createVerticalStrut(8));
+        main.add(lblSiteUrl);
         main.add(Box.createVerticalGlue());
-
-        main.add(Box.createVerticalStrut(20));
-
         main.add(Box.createVerticalStrut(20));
 
         // ---------- QUICK ACCESS ----------
@@ -219,45 +218,35 @@ public class BrowserGUI extends JFrame {
         sitePanel.add(
                 createSiteButton(
                         "Google",
-                        "google.com",
-                        "SimpleBrowser/assets/favicon/google.png",
-                        "SimpleBrowser/assets/screenshot/SS_Google.png"
+                        "google.com"
                 )
         );
 
         sitePanel.add(
                 createSiteButton(
                         "YouTube",
-                        "youtube.com",
-                        "SimpleBrowser/assets/favicon/youtube.png",
-                        "SimpleBrowser/assets/screenshot/SS_Youtube.png"
+                        "youtube.com"
                 )
         );
 
         sitePanel.add(
                 createSiteButton(
                         "GitHub",
-                        "github.com",
-                        "SimpleBrowser/assets/favicon/github.png",
-                        "SimpleBrowser/assets/screenshot/SS_Github.png"
+                        "github.com"
                 )
         );
 
         sitePanel.add(
                 createSiteButton(
                         "Facebook",
-                        "facebook.com",
-                        "SimpleBrowser/assets/favicon/facebook.png",
-                        "SimpleBrowser/assets/screenshot/SS_Fesnuk.png"
+                        "facebook.com"
                 )
         );
 
         sitePanel.add(
                 createSiteButton(
                         "X",
-                        "twitter.com",
-                        "SimpleBrowser/assets/favicon/X.png",
-                        "SimpleBrowser/assets/screenshot/SS_X.png"
+                        "twitter.com"
                 )
         );
 
@@ -272,32 +261,10 @@ public class BrowserGUI extends JFrame {
 
     private JButton createSiteButton(
             String name,
-            String url,
-            String favicon,
-            String picture
+            String url
     ) {
 
         JButton button = new JButton(name);
-
-        ImageIcon icon = loadImage(
-                favicon,
-                28,
-                28
-        );
-
-        if (icon != null) {
-            button.setIcon(icon);
-        }
-
-        button.setHorizontalTextPosition(
-                SwingConstants.CENTER
-        );
-
-        button.setVerticalTextPosition(
-                SwingConstants.BOTTOM
-        );
-
-        button.setIconTextGap(7);
 
         button.setForeground(TEXT);
         button.setBackground(SURFACE);
@@ -307,7 +274,7 @@ public class BrowserGUI extends JFrame {
         );
 
         button.setPreferredSize(
-                new Dimension(125, 80)
+                new Dimension(125, 56)
         );
 
         button.setFocusPainted(false);
@@ -320,9 +287,7 @@ public class BrowserGUI extends JFrame {
         button.addActionListener(
                 e -> visit(
                         name,
-                        url,
-                        favicon,
-                        picture
+                        url
                 )
         );
 
@@ -371,16 +336,12 @@ public class BrowserGUI extends JFrame {
 
     private void visit(
             String name,
-            String url,
-            String favicon,
-            String picture
+            String url
     ) {
 
         Situs situs = new Situs(
                 url,
-                name,
-                favicon,
-                picture
+                name
         );
 
         Node node = new Node(situs);
@@ -401,21 +362,11 @@ public class BrowserGUI extends JFrame {
         // URL di navigation bar
         lblAddress.setText(current.alamatSitus);
 
-        // ---------- SCREENSHOT ----------
-
-        if (current.picture != null) {
-
-            ImageIcon screenshot = loadImage(
-                    current.picture,
-                    640,
-                    360
-            );
-
-            lblScreenshot.setIcon(screenshot);
-
-        } else {
-            lblScreenshot.setIcon(null);
-        }
+        lblSiteInitial.setText(
+                getSiteInitial(current.namaSitus)
+        );
+        lblSiteName.setText(current.namaSitus);
+        lblSiteUrl.setText(current.alamatSitus);
 
         updateHistory();
 
@@ -428,31 +379,12 @@ public class BrowserGUI extends JFrame {
         );
     }
 
-    // =========================================================
-    // IMAGE LOADER
-    // =========================================================
-
-    private ImageIcon loadImage(String path, int width, int height) {
-        if (path == null) {
-            return null;
+    private String getSiteInitial(String siteName) {
+        if (siteName == null || siteName.isBlank()) {
+            return "?";
         }
 
-        ImageIcon original = new ImageIcon(path);
-
-        if (original.getIconWidth() <= 0) {
-            System.out.println("Failed to load image: " + path);
-            return null;
-        }
-
-        Image scaled = original
-                .getImage()
-                .getScaledInstance(
-                        width,
-                        height,
-                        Image.SCALE_SMOOTH
-                );
-
-        return new ImageIcon(scaled);
+        return siteName.substring(0, 1).toUpperCase();
     }
 
     // =========================================================
